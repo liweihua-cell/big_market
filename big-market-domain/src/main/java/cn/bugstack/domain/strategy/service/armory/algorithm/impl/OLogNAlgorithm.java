@@ -49,8 +49,8 @@ public class OLogNAlgorithm extends AbstractAlgorithm {
             table.put(ft, awardId);
             from = to + 1;
         }
-
-        repository.storeStrategyAwardSearchRateTable(key, to, table);
+        Map<Integer, Integer> hashMap = new HashMap<>();
+        repository.storeStrategyAwardSearchRateTable(key, to, hashMap);
     }
 
     @Override
