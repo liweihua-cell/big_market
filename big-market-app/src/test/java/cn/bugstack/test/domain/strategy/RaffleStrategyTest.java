@@ -16,6 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.redisson.api.RBlockingQueue;
 import org.redisson.api.RDelayedQueue;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -40,6 +42,7 @@ public class RaffleStrategyTest {
     @Resource
     private IStrategyArmory strategyArmory;
     @Resource
+    @Mock
     private IRaffleStrategy raffleStrategy;
     @Resource
     private RuleWeightLogicChain ruleWeightLogicChain;
@@ -91,6 +94,22 @@ public class RaffleStrategyTest {
         log.info("请求参数：{}", JSON.toJSONString(raffleFactorEntity));
         log.info("测试结果：{}", JSON.toJSONString(raffleAwardEntity));
     }
+
+
+    /**
+     * 使用Mockito方法进行测试
+     */
+    @Test
+    public void test_mock() {
+        //mock(Class<T> classToMock)：创建一个指定类的Mock对象。
+        RaffleFactorEntity mockDto = Mockito.mock(RaffleFactorEntity.class);
+        //when(...).thenReturn(...)：定义Mock对象的行为。
+        Mockito.when(raffleStrategy.performRaffle(mockDto)).thenReturn(new RaffleAwardEntity());
+        //verify(...)：验证Mock对象是否按照预期的方式被调用。
+        Mockito.verify(raffleStrategy.performRaffle(mockDto));
+
+    }
+
 
     /**
      * 次数错校验，抽奖n次后解锁。100003 策略，你可以通过调整 @Before 的 setUp 方法中个人抽奖次数来验证。比如最开始设置0，之后设置10

@@ -25,7 +25,7 @@ public class DefaultChainFactory {
     // 存放策略链，策略ID -> 责任链
     private final Map<Long, ILogicChain> strategyChainGroup;
 
-    public DefaultChainFactory(ApplicationContext applicationContext, IStrategyRepository repository) {
+    public DefaultChainFactory(ApplicationContext applicationContext, IStrategyRepository repository, Map<String, ILogicChain> logicChainGroup) {
         this.applicationContext = applicationContext;
         this.repository = repository;
         this.strategyChainGroup = new ConcurrentHashMap<>();
